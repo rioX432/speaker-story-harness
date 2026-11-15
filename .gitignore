@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+.env
+.env.*
+*.secret
+*.key
+*.pem
+# Generated artifacts; keep sample storyboard for demonstration
+/talks/
+**/draft/
+**/approvals/
+**/reviews/human-feedback.json
+**/.cache/
+/build/

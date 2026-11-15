@@ -1,0 +1,12 @@
+{
+  "status": "UNVERIFIED",
+  "fingerprint": "3b923f5bb6d9742249dcaf512eecb515b17f68a171d760c5bc8264cb21cf1b25",
+  "errors": [],
+  "warnings": [
+    "AI story review has no independent-context attestation"
+  ],
+  "approval": "missing",
+  "semantic_review": "current",
+  "total_minutes": 12.0,
+  "beat_count": 8
+}

@@ -1,0 +1,1 @@
+Follow `AGENTS.md`. Read `.claude/skills/story-orchestrator/SKILL.md` for the story-first workflow. `story.json` is the approved narrative source; the slide renderer is a replaceable downstream tool. Do not draft slides before explicit human narrative approval.
