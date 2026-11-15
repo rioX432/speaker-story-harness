@@ -1,12 +1,18 @@
 {
   "status": "UNVERIFIED",
-  "fingerprint": "3b923f5bb6d9742249dcaf512eecb515b17f68a171d760c5bc8264cb21cf1b25",
+  "fingerprint": "b738fed871c088d5cbb80bed121f57b5307c2eba54b9216dab4f7c4408428a68",
   "errors": [],
   "warnings": [
-    "AI story review has no independent-context attestation"
+    "AI candidate review has no independent-context attestation",
+    "AI story review has no independent-context attestation",
+    "story check not met (partial): なぜ検索エンジンを検討する必要があるのか説明できているか",
+    "story check not met (partial): 既存の課題と実験が対応しているか",
+    "story check not met (partial): 聴講者が翌日から使える知見があるか"
   ],
   "approval": "missing",
   "semantic_review": "current",
   "total_minutes": 12.0,
-  "beat_count": 8
+  "beat_count": 8,
+  "candidates": 3,
+  "candidate_review": "current"
 }

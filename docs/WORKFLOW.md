@@ -8,7 +8,7 @@ The legacy pipeline correctly tracked `Big Idea → concept graph → independen
 
 `DISCOVER` → `STORY_DRAFT` → `AI_CRITIQUE` → `HUMAN_STORY_REVIEW` ↺ → `STORY_APPROVED` → `SLIDE_DRAFT` → `DECK_QA` → `REHEARSAL`
 
-AI may propose several distinct narratives early, but only one coherent proposal should appear in `story.json` at a time. Keep rejected candidates as short decision notes, not as a large maintenance burden. Never invent a mandatory number of revisions or agents.
+AI may propose several distinct narratives early. Put them side by side in the optional `candidates.json` (usually 2–3, with a recommendation and its reason) and have them reviewed independently, but only one coherent proposal should appear in `story.json` at a time; record which one in `story.candidate_id`. Keep candidates short: they are decision material, not parallel stories to maintain. Never invent a mandatory number of revisions or agents.
 
 ### Who can do what
 
@@ -20,9 +20,40 @@ AI may propose several distinct narratives early, but only one coherent proposal
 
 ### Revision UX
 
-`python3 harness/storyflow.py board <project>` produces `build/storyboard.html` and `.md`. HTML displays each beat's question, claim, reason for position, next question, available evidence and independent AI findings. A textarea at each beat plus an overall one exports `human-feedback.json` without network calls.
+`python3 harness/storyflow.py board <project>` produces `build/storyboard.html` and `.md`. Each beat shows eight numbered items: the audience question, the claim, why it is here, the supporting evidence (summary, kind, status, scope, source), how it follows from the previous beat, the question handed to the next beat, risks (the author's own risks with structural fixes, then independent AI findings), and minutes. Above the beats the board shows the candidate comparison when `candidates.json` exists, and the whole-story checks with verdict, reason and fix. Missing optional fields render as 「未記入」 instead of being hidden, so gaps stay visible.
 
-Alternatively, the presenter can simply tell the AI what feels wrong in chat. The author must update the story file, regenerate the board, and describe the causal difference in the new version. Approval does not carry over when any `brief.json`, `story.json` or `evidence.json` content changes.
+A textarea at each beat, an overall one and the candidate choice (one candidate, a mix, or none, with an instruction) export `human-feedback.json` without network calls. `storyflow.py feedback` rejects a candidate choice made against a different `candidates.json`, an unknown candidate id, and a `selected` or `instruction` that is not a string.
+
+Alternatively, the presenter can simply tell the AI what feels wrong in chat. The author must update the story file, regenerate the board, and describe the causal difference in the new version. Approval does not carry over when any `brief.json`, `story.json` or `evidence.json` content changes. `candidates.json` is hashed separately (`candidates_fingerprint`) and binds only the candidate review and the candidate choice, so refining rejected candidates does not invalidate an approved story.
+
+### Optional fields
+
+All of these are optional; older projects without them keep working and the board shows 「未記入」.
+
+```jsonc
+// brief.json — whole-story checks for this talk; defaults are used when absent
+"review_checks": ["Does the talk explain why the proposed change needs to be considered?", "..."]
+
+// story.json — the candidate this story expands, and per-beat fields
+"candidate_id": "C1",
+"beats": [{
+  "id": "B2", "...": "...",
+  "from_previous": "B1 established that the current setup is fine at small scale, so we ask what breaks as data grows",
+  "risks": [{"risk": "The breakdown is a hypothesis and may read as an observed failure",
+             "fix": "Open the beat by framing it as a growth scenario; replace the evidence once measured"}]
+}]
+
+// evidence.json — kind is fact / experiment / inference / plan; url is optional and becomes a link only for http(s)
+{"id": "E3", "status": "limited", "kind": "experiment", "summary": "...", "scope": "...", "source": "...", "url": "https://..."}
+
+// candidates.json
+{"recommended": "C1", "recommendation_reason": "...",
+ "candidates": [{"id": "C1", "title": "...", "approach": "problem-first",
+   "audience_problem": "...", "big_idea": "...", "logic": ["..."], "key_findings": ["..."],
+   "takeaway_criteria": ["..."], "failure_risks": ["..."], "outline": ["..."]}]}
+```
+
+`logic`, `key_findings`, `takeaway_criteria` and `failure_risks` accept a string or a list of strings. `audit` rejects malformed values, duplicate candidate ids, a `recommended` or `candidate_id` that names no candidate, and a risk without a fix. A `null` `from_previous` or `risks` counts as not written.
 
 ### Semantic review questions (beyond lint)
 

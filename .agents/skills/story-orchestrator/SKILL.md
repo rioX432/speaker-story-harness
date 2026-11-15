@@ -10,10 +10,10 @@ Read `AGENTS.md` and `docs/WORKFLOW.md` before acting. For every talk, maintain 
 ## Sequence
 
 1. Ask why this talk is valuable; inspect actual system/user pain, audience and decision at stake. Reuse details already supplied.
-2. Call `story-architect`: propose 2–3 materially different story directions when useful; choose one and build a chain of question → answer → next question. State the chosen direction and its rejected alternatives succinctly.
-3. Record evidence statuses: `confirmed`, `limited`, `unverified`, `hypothesis`. Do not turn an imagined problem into a measured failure.
-4. Run `python3 harness/storyflow.py audit <talk>`, `review-request <talk>` and a separate `story-critic`. Save the review at `<talk>/reviews/ai-story-review.json` with the exact fingerprint.
-5. Run `board <talk>`, show the user the generated HTML or Markdown, summarize the 2–3 most important risks and invite targeted edits. Do not create slides here. Do not silently simulate consent.
+2. Call `story-architect`: write 2–3 materially different story directions into `candidates.json` with a recommendation and reason; expand the recommended one into `story.json` (`candidate_id`) as a chain of question → answer → next question, with `from_previous` and the author's `risks` per beat.
+3. Record evidence statuses (`confirmed`, `limited`, `unverified`, `hypothesis`) and kinds (`fact`, `experiment`, `inference`, `plan`). Do not turn an imagined problem into a measured failure.
+4. Run `python3 harness/storyflow.py audit <talk>`, `review-request <talk>` and a separate `story-critic`. Save the review at `<talk>/reviews/ai-story-review.json` with the exact fingerprint, including the whole-story `checks`. When `candidates.json` exists, also have a separate critic answer `build/ai-candidate-review-request.md` into `reviews/ai-candidate-review.json`.
+5. Run `board <talk>`, show the user the generated HTML or Markdown, summarize the 2–3 most important risks and invite targeted edits and a candidate choice (one candidate or a mix). Do not create slides here. Do not silently simulate consent.
 6. Incorporate user feedback in place. Repeat AI review only as needed for changed material; approval automatically becomes stale on any relevant content change.
 7. Only after the user explicitly approves the current narrative, run `approve <talk> --human-confirmed --note '...'`. Then `draft <talk>`.
 8. Use `deck-narrative`, `deck-prose`, `deck-figure`, `deck-direction`, `deck-delivery-qa` for the real deck. Validate beat anchors and meaning after production.

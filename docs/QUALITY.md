@@ -15,7 +15,11 @@ Do not reduce a speech to a numeric score. Ask whether each of these statements 
 
 ## AI reviewer output
 
-At minimum: concrete beat identifier; verbatim claim or question; risk and why it matters; severity `critical/major/minor`; specific revision suggestion; status `open/resolved/accepted_risk`. Any reviewer who has read the author's private plan or model answer is **not** an independent initial-audience reviewer.
+At minimum: concrete beat identifier; verbatim claim or question; risk and why it matters; severity `critical/major/minor`; specific revision suggestion; status `open/resolved/accepted_risk`.
+
+The story review also answers every whole-story check from `brief.review_checks` (or the generic defaults) as `checks:[{check, verdict, reason, fix}]`, copying the check text verbatim. `verdict` is `pass/partial/fail/unknown`; `partial` and `fail` need a structural `fix`, and `audit` warns about them until they are resolved. Answering the same check twice is an error; once a review has `checks`, `audit` also warns about any check it left unanswered (older reviews without `checks` are unaffected).
+
+A candidate comparison review (`reviews/ai-candidate-review.json`) judges each candidate for accuracy, inevitability, causality, first-time comprehension and interest: `candidates:[{candidate_id, verdict, strengths, breakpoints, criteria:[{criterion, assessment}]}]`, plus `summary` and an optional `recommended`. `audit` warns about any candidate the review does not cover. More technical detail is not a reason to prefer a candidate. Any reviewer who has read the author's private plan or model answer is **not** an independent initial-audience reviewer.
 
 ## The difference between caution and self-sabotage
 

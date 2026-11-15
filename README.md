@@ -31,10 +31,20 @@ python3 harness/storyflow.py init talks/my-talk --title '新しい登壇' --minu
 # AIが talks/my-talk/brief.json, story.json, evidence.json を作り込む
 python3 harness/storyflow.py review-request talks/my-talk
 # 別コンテキストのAIでレビューし、reviews/ai-story-review.json を生成
+# candidates.json があれば build/ai-candidate-review-request.md も作られる。
+# 別コンテキストのAIで候補を比べ、reviews/ai-candidate-review.json を生成
 python3 harness/storyflow.py board talks/my-talk
 ```
 
-HTMLの各章に感想を書いて **Export feedback** すると `human-feedback.json` がダウンロードされます。これをAIに渡して構成を修正させるか、次のコマンドで取り込めます。
+ストーリーボードには次の内容が並びます。
+
+- 章ごとの8項目：聴講者に考えてもらう問い、この章の主張、なぜこの章が必要か、主張を支える根拠（要約・種別・状態・適用範囲・出所）、前章からのつながり、次章へ渡す問い、論理の飛躍・主張のリスク（作成者の認識と修正案、AIレビューの指摘）、想定時間。
+- `candidates.json` がある場合は、ストーリー候補を横に並べた比較：聴講者の問題意識、Big Idea、課題から技術選択に至る論理、重要な発見、持ち帰る判断基準、破綻する可能性。推奨案とその理由、候補ごとの独立AIレビューの要点も表示します。
+- 構成全体の確認：観点ごとの判定・理由・修正案。観点は `brief.review_checks` で登壇ごとに変えられ、無ければ汎用の既定観点を使います。
+
+まだ書かれていない項目は「未記入」と表示されます。古い形式の `story.json` もそのまま読めます。
+
+HTMLで各章に修正指示を書き、採用する候補（または混ぜ方）を選んで **修正指示を書き出す（.json）** を押すと、`human-feedback.json` がダウンロードされます。これをAIに渡して構成を修正させるか、次のコマンドで取り込めます。
 
 ```bash
 python3 harness/storyflow.py feedback talks/my-talk --file ~/Downloads/human-feedback.json
@@ -62,9 +72,12 @@ AIへの最初の指示例：
 | 場所 | 意味 |
 | --- | --- |
 | `brief.json` | 目的、聴講者、持ち帰り、時間、公開制約 |
-| `story.json` | Big Idea、問いと答え、章ごとの主張・接続・時間・根拠ID |
-| `evidence.json` | 事実・仮説・PoC・未検証の出所と適用範囲 |
-| `reviews/ai-story-review.json` | AIの意味レビュー。本文のハッシュにひも付く |
+| `story.json` | Big Idea、問いと答え、章ごとの主張・前章からのつながり・リスクと修正案・時間・根拠ID、展開した候補ID |
+| `candidates.json` | 任意。比較するストーリー候補（2〜3案）、推奨案と理由 |
+| `evidence.json` | 根拠の要約・種別（事実/実験/推測/構想）・確度・出所・適用範囲 |
+| `reviews/ai-story-review.json` | AIの意味レビューと構成全体の確認結果。本文のハッシュにひも付く |
+| `reviews/ai-candidate-review.json` | 候補比較への独立AIレビュー。`candidates.json` のハッシュにひも付く |
+| `reviews/human-feedback.json` | 人間の修正指示と候補の選択 |
 | `build/storyboard.html` | 人間が読んで章ごとの指示を出すレビュー画面 |
 | `approvals/story-approved.json` | 現行ストーリーへの明示的な承認記録 |
 | `draft/slides.md` | 承認後のみ生成できるスライド骨子。最終資料ではない |
