@@ -1,0 +1,107 @@
+{
+  "fingerprint": "c48beec312d83ac84426faa2f0fba77599d322b6689145d0d32efe8f27930929",
+  "reviewer_independent": false,
+  "summary": "サンプル用の暫定自己レビュー。3案とも同じ架空の根拠に依存しているため、根拠が仮の値であることが最も効くのは C3。",
+  "recommended": "C1",
+  "candidates": [
+    {
+      "candidate_id": "C1",
+      "verdict": "最も破綻しにくいが、B3 から B4 へ進む必然性の説明が要る",
+      "strengths": [
+        "聴衆の症状から入り、既存DBの改善を対案として公平に扱う"
+      ],
+      "breakpoints": [
+        "遅さの分解が仮説のまま課題として語られると作り話に見える",
+        "既存DBの改善で十分なら、エンジンへ進む理由が消える"
+      ],
+      "criteria": [
+        {
+          "criterion": "内容の正確さ",
+          "assessment": "仮の値であることを明示すれば正確"
+        },
+        {
+          "criterion": "話の必然性",
+          "assessment": "B3→B4 の接続が弱い"
+        },
+        {
+          "criterion": "因果関係",
+          "assessment": "分解→改善→残差→仮説の順に因果がある"
+        },
+        {
+          "criterion": "初見での理解",
+          "assessment": "専門用語が少なく追いやすい"
+        },
+        {
+          "criterion": "面白さ",
+          "assessment": "結果の意外性は C3 より弱い"
+        }
+      ]
+    },
+    {
+      "candidate_id": "C2",
+      "verdict": "正確だが、聴衆の問題に答えない解説になりやすい",
+      "strengths": [
+        "検索要件と構造の対応が一度で分かる"
+      ],
+      "breakpoints": [
+        "「自分のサービスで遅いのか」という問いに答えない",
+        "検証が添え物になる"
+      ],
+      "criteria": [
+        {
+          "criterion": "内容の正確さ",
+          "assessment": "一次資料で確認すれば高い"
+        },
+        {
+          "criterion": "話の必然性",
+          "assessment": "なぜ今この比較かが弱い"
+        },
+        {
+          "criterion": "因果関係",
+          "assessment": "分類の列挙で、因果は薄い"
+        },
+        {
+          "criterion": "初見での理解",
+          "assessment": "図があれば理解しやすい"
+        },
+        {
+          "criterion": "面白さ",
+          "assessment": "教科書的"
+        }
+      ]
+    },
+    {
+      "candidate_id": "C3",
+      "verdict": "最も面白いが、根拠が架空の値だと言い過ぎになる",
+      "strengths": [
+        "期待と結果のギャップで最後まで引っ張れる"
+      ],
+      "breakpoints": [
+        "意外性が数値に依存し、仮の値では主張を支えきれない",
+        "既存DBの改善が後回しで比較が不公平に見える"
+      ],
+      "criteria": [
+        {
+          "criterion": "内容の正確さ",
+          "assessment": "結果の一般化に注意"
+        },
+        {
+          "criterion": "話の必然性",
+          "assessment": "期待→裏切りで強い"
+        },
+        {
+          "criterion": "因果関係",
+          "assessment": "差が消えた理由の分解が要"
+        },
+        {
+          "criterion": "初見での理解",
+          "assessment": "追いやすい"
+        },
+        {
+          "criterion": "面白さ",
+          "assessment": "3案で最も高い"
+        }
+      ]
+    }
+  ]
+}

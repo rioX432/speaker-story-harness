@@ -16,6 +16,8 @@ The harness is **renderer-agnostic**. Do not copy V14's project-specific Python 
 brief.json
 story.json
 evidence.json
+candidates.json
+reviews/ai-candidate-review.json
 reviews/ai-story-review.json
 reviews/human-feedback.json
 approvals/story-approved.json
